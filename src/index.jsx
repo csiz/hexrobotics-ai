@@ -9,28 +9,34 @@ const handImages = [handImg1, handImg2, handImg3];
 
 const projects = [
   {
-    title: 'Dextrous Robot Hand',
-    subtitle: '21-DOF Tendon-Driven Manipulator',
+    id: 'hex-dextrous-hand',
+    navLabel: 'Hex Dextrous Hand',
+    title: 'Hex Dextrous Hand',
+    subtitle: '21-DOF Sensor Rich Robotic Hand',
     images: handImages,
     imageAlt: 'Hex Robotics dextrous robot hand',
     description:
-      'A highly capable 21-degree-of-freedom robotic hand driven by tendons and servo actuators. ' +
-      'Designed for dextrous manipulation tasks, the hand closely mirrors human finger kinematics — ' +
-      'enabling precise grasping, gesturing, and tool use. Built with custom 3-D printed linkages ' +
-      'and an open-source firmware stack.',
+      'A highly capable 21-degree-of-freedom robotic hand with rich sensor feedback. ' +
+      'Designed for dextrous manipulation tasks, the hand mirrors human finger kinematics including ' +
+      'opposable thumb and pinkie. A patented flexible circuit folds like an ' +
+      'origami around the fingers placing magnetic rotation sensors and capacitive pressure sensors at ' +
+      'every joint and fingertip, providing rich proprioceptive feedback for advanced control algorithms. ' +
+      'All 3D files are open sourced and our custom motor drivers can be ordered individually for easy repairs.',
     link: 'https://github.com/csiz/hextech-mecha-hand/tree/master',
     linkLabel: 'View on GitHub',
   },
   {
-    title: 'Mini Motor Driver',
+    id: 'hex-motor-mini-drive',
+    navLabel: 'Hex Motor Mini Drive',
+    title: 'Hex Motor Mini Drive',
     subtitle: 'Compact Brushless Motor Controller',
     images: [motorImg],
     imageAlt: 'Hex mini motor driver PCB',
     description:
-      'A small-footprint electronic circuit designed to drive brushless DC motors with high efficiency ' +
-      'and precise torque control. The board integrates gate drivers, current sensing, and an onboard ' +
-      'microcontroller to deliver a self-contained FOC solution that slots neatly into tight robotic ' +
-      'assemblies.',
+      'A small-footprint, open source, electronic circuit designed to drive brushless DC motors (3 wire)  ' +
+      'and servos (4 wire) with high efficiency and precise torque control. The board connects via USB-C ' +
+      'for power and communication and implements a field oriented motor controller running at 28kHz for ' +
+      'smooth operation. Also includes 2 I2C ports for magnetic rotation sensor modules.',
     link: 'https://github.com/csiz/hex-single-motor-mini-drive',
     linkLabel: 'View on GitHub',
   },
@@ -56,27 +62,73 @@ function SlideshowImage({ images, alt }) {
     <img
       src={images[index]}
       alt={alt}
-      className="project-card__image"
+      className="project-section__image"
       style={{ opacity: visible ? 1 : 0 }}
     />
   );
 }
 
-function ProjectCard({ title, subtitle, images, imageAlt, description, link, linkLabel }) {
+function ProjectSection({ id, title, subtitle, images, imageAlt, description, link, linkLabel, reverse }) {
   return (
-    <article className="project-card">
-      <div className="project-card__image-wrap">
+    <section id={id} className={`project-section${reverse ? ' project-section--reverse' : ''}`}>
+      <div className="project-section__media">
         <SlideshowImage images={images} alt={imageAlt} />
       </div>
-      <div className="project-card__body">
-        <h2 className="project-card__title">{title}</h2>
-        <p className="project-card__subtitle">{subtitle}</p>
-        <p className="project-card__description">{description}</p>
-        <a href={link} className="project-card__link" target="_blank" rel="noopener noreferrer">
+      <div className="project-section__content">
+        <p className="project-section__subtitle">{subtitle}</p>
+        <h2 className="project-section__title">{title}</h2>
+        <p className="project-section__description">{description}</p>
+        <a href={link} className="project-section__link" target="_blank" rel="noopener noreferrer">
           {linkLabel} &rarr;
         </a>
       </div>
-    </article>
+    </section>
+  );
+}
+
+function AboutSection() {
+  return (
+    <section id="about" className="about-section">
+      <div className="about-section__inner">
+        <a
+          href="https://www.linkedin.com/in/calin-mocanu-40571922/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="about-section__avatar-link"
+          aria-label="Calin Mocanu on LinkedIn"
+        >
+          <div className="about-section__avatar">CM</div>
+        </a>
+        <div className="about-section__body">
+          <h2 className="about-section__name">Calin Mocanu</h2>
+          <p className="about-section__bio">
+            Builder of open-source robotics hardware. Interested in dextrous manipulation,
+            motor control, and making capable robots accessible to everyone.
+          </p>
+          <div className="about-section__links">
+            <a
+              href="https://www.linkedin.com/in/calin-mocanu-40571922/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="about-section__link"
+            >
+              LinkedIn
+            </a>
+            <a
+              href="https://github.com/csiz"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="about-section__link"
+            >
+              GitHub
+            </a>
+            <span className="about-section__email">
+              calin (dot) mocanu (at) gmail
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -85,28 +137,27 @@ function App() {
     <div className="page">
       <header className="site-header">
         <div className="site-header__inner">
-          <span className="site-header__logo">HEX</span>
-          <div className="site-header__text">
-            <h1 className="site-header__title">Hex Robotics</h1>
-            <p className="site-header__tagline">Open-source robotics hardware &amp; firmware</p>
+          <div className="site-header__brand">
+            <span className="site-header__logo">HEX</span>
+            <div className="site-header__text">
+              <h1 className="site-header__title">Hex Robotics</h1>
+              <p className="site-header__tagline">Open-source robotics hardware &amp; firmware</p>
+            </div>
           </div>
+          <nav className="site-nav">
+            {projects.map((p) => (
+              <a key={p.id} href={`#${p.id}`} className="site-nav__link">{p.navLabel}</a>
+            ))}
+            <a href="#about" className="site-nav__link site-nav__link--accent">About Us</a>
+          </nav>
         </div>
       </header>
 
       <main className="main">
-        <section className="projects-intro">
-          <h2 className="projects-intro__heading">Our Projects</h2>
-          <p className="projects-intro__body">
-            We build open robotics hardware — from nimble motor controllers to fully articulated
-            hands. Everything is designed to be reproducible, hackable, and well-documented.
-          </p>
-        </section>
-
-        <section className="projects-grid">
-          {projects.map((p) => (
-            <ProjectCard key={p.title} {...p} />
-          ))}
-        </section>
+        {projects.map((p, i) => (
+          <ProjectSection key={p.id} {...p} reverse={i % 2 !== 0} />
+        ))}
+        <AboutSection />
       </main>
 
       <footer className="site-footer">

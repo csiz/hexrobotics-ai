@@ -24,6 +24,7 @@ const projects = [
       'All 3D files are open sourced and our custom motor drivers can be ordered individually for easy repairs.',
     link: 'https://github.com/csiz/hextech-mecha-hand/tree/master',
     linkLabel: 'View on GitHub',
+    youtubeLink: 'https://www.youtube.com/shorts/kJ4OLfqDy5U',
   },
   {
     id: 'hex-motor-mini-drive',
@@ -68,7 +69,7 @@ function SlideshowImage({ images, alt }) {
   );
 }
 
-function ProjectSection({ id, title, subtitle, images, imageAlt, description, link, linkLabel, reverse }) {
+function ProjectSection({ id, title, subtitle, images, imageAlt, description, link, linkLabel, youtubeLink, reverse }) {
   return (
     <section id={id} className={`project-section${reverse ? ' project-section--reverse' : ''}`}>
       <div className="project-section__media">
@@ -78,9 +79,16 @@ function ProjectSection({ id, title, subtitle, images, imageAlt, description, li
         <p className="project-section__subtitle">{subtitle}</p>
         <h2 className="project-section__title">{title}</h2>
         <p className="project-section__description">{description}</p>
-        <a href={link} className="project-section__link" target="_blank" rel="noopener noreferrer">
-          {linkLabel} &rarr;
-        </a>
+        <div className="project-section__links">
+          <a href={link} className="project-section__link" target="_blank" rel="noopener noreferrer">
+            {linkLabel} &rarr;
+          </a>
+          {youtubeLink && (
+            <a href={youtubeLink} className="project-section__link project-section__link--youtube" target="_blank" rel="noopener noreferrer">
+              Watch Demo &rarr;
+            </a>
+          )}
+        </div>
       </div>
     </section>
   );

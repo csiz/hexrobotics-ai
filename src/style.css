@@ -189,22 +189,38 @@ body {
   color: var(--c-text-muted);
 }
 
+.project-section__links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
 .project-section__link {
   display: inline-block;
-  margin-top: 0.5rem;
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--c-teal);
   text-decoration: none;
   border-bottom: 1.5px solid var(--c-teal-light);
   padding-bottom: 1px;
-  align-self: flex-start;
   transition: color var(--transition), border-color var(--transition);
 }
 
 .project-section__link:hover {
   color: var(--c-orange);
   border-color: var(--c-orange-light);
+}
+
+.project-section__link--youtube {
+  color: var(--c-orange);
+  border-color: var(--c-orange-light);
+}
+
+.project-section__link--youtube:hover {
+  color: var(--c-teal);
+  border-color: var(--c-teal-light);
 }
 
 /* ── About section ─────────────────────────────────────────────────── */

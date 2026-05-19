@@ -1,0 +1,209 @@
+/* ── Design tokens ─────────────────────────────────────────────────── */
+:root {
+  --c-bg:           #F5EFE6;   /* warm off-white */
+  --c-surface:      #FEFCF9;
+  --c-border:       #DDD0BE;
+  --c-header-bg:    #251E18;   /* dark warm brown */
+  --c-header-text:  #F0E8DC;
+  --c-orange:       #BF7030;   /* muted copper-orange */
+  --c-orange-light: #D4904A;
+  --c-teal:         #3E6E78;   /* muted teal — complement to orange */
+  --c-teal-light:   #548A95;
+  --c-text:         #2A2018;
+  --c-text-muted:   #7A6A5C;
+
+  --radius:  10px;
+  --shadow:  0 2px 12px rgba(42, 32, 24, 0.10);
+  --shadow-hover: 0 6px 24px rgba(42, 32, 24, 0.16);
+  --transition: 0.22s ease;
+
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 16px;
+  color: var(--c-text);
+  background: var(--c-bg);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100dvh;
+  background: var(--c-bg);
+}
+
+/* ── Page shell ─────────────────────────────────────────────────────── */
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────── */
+.site-header {
+  background: var(--c-header-bg);
+  color: var(--c-header-text);
+  padding: 1.75rem 2rem;
+  border-bottom: 3px solid var(--c-orange);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.site-header__logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--c-orange-light);
+  border: 2px solid var(--c-orange);
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.site-header__title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--c-header-text);
+}
+
+.site-header__tagline {
+  font-size: 0.875rem;
+  color: var(--c-text-muted);
+  margin-top: 0.15rem;
+  color: #A89880;
+}
+
+/* ── Main ───────────────────────────────────────────────────────────── */
+.main {
+  flex: 1;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 2rem;
+}
+
+/* ── Projects intro ─────────────────────────────────────────────────── */
+.projects-intro {
+  margin-bottom: 2.5rem;
+}
+
+.projects-intro__heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--c-orange);
+  letter-spacing: 0.02em;
+  margin-bottom: 0.6rem;
+}
+
+.projects-intro__body {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--c-text-muted);
+  max-width: 62ch;
+}
+
+/* ── Projects grid ──────────────────────────────────────────────────── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 2rem;
+}
+
+/* ── Project card ───────────────────────────────────────────────────── */
+.project-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.project-card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-3px);
+}
+
+.project-card__image-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #1E1810;
+}
+
+.project-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease, opacity 0.6s ease;
+}
+
+.project-card:hover .project-card__image {
+  transform: scale(1.04);
+}
+
+.project-card__body {
+  padding: 1.5rem 1.5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.project-card__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--c-text);
+  margin-bottom: 0.2rem;
+}
+
+.project-card__subtitle {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-orange);
+  margin-bottom: 0.9rem;
+}
+
+.project-card__description {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--c-text-muted);
+  flex: 1;
+  margin-bottom: 1.25rem;
+}
+
+.project-card__link {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--c-teal);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--c-teal-light);
+  padding-bottom: 1px;
+  transition: color var(--transition), border-color var(--transition);
+  align-self: flex-start;
+}
+
+.project-card__link:hover {
+  color: var(--c-orange);
+  border-color: var(--c-orange-light);
+}
+
+/* ── Footer ─────────────────────────────────────────────────────────── */
+.site-footer {
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.8rem;
+  color: var(--c-text-muted);
+  border-top: 1px solid var(--c-border);
+  margin-top: auto;
+}
